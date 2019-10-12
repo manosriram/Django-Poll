@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<form action="{% url 'polls:vote' question.id%}" method="post" accept-charset="utf-8">
+		{% csrf_token %}
+		{% for ch in question.choice_set.all %}
+			<div class="form-check">
+				<input type="radio" name="choice" class="form-check-input" id="choice{{forloop.counter}}" value="{{ch.id}}">
+				<label for="choice{{forloop.counter}}">{{ch.choiceText}}</label>
+			</div>
+		{% endfor %}
+	<input type="submit" value="Vote" class="btn btn-success btn-md btn-block mt-4">
+</form>
+{% endblock %}
